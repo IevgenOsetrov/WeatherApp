@@ -29,6 +29,11 @@
         <activity android:name=".DetailActivity" />
 
         <activity android:name=".SettingsActivity" />
+
+        <provider
+            android:name=".data.WeatherProvider"
+            android:authorities="com.dev.sunshine"
+            android:exported="false" />
     </application>
 
 </manifest>

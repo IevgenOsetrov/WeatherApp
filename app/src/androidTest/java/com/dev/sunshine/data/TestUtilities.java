@@ -22,7 +22,7 @@ import java.util.Set;
  */
 public class TestUtilities extends AndroidTestCase {
     private static final String TEST_LOCATION = "99705";
-    private static final long TEST_DATE = 1419033600L;  // December 20th, 2014
+    public static final long TEST_DATE = 1419033600L;  // December 20th, 2014
 
     static void validateCursor(String error, Cursor valueCursor, ContentValues expectedValues) {
         assertTrue("Empty cursor returned. " + error, valueCursor.moveToFirst());

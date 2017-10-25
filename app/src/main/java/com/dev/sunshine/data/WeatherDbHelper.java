@@ -25,7 +25,7 @@ import com.dev.sunshine.data.WeatherContract.WeatherEntry;
 /**
  * Manages a local database for weather data.
  */
-class WeatherDbHelper extends SQLiteOpenHelper {
+public class WeatherDbHelper extends SQLiteOpenHelper {
 
     // If you change the database schema, you must increment the database version.
     private static final int DATABASE_VERSION = 2;
