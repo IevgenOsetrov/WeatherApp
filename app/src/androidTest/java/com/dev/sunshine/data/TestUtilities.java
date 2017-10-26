@@ -21,7 +21,7 @@ import java.util.Set;
     in our solution to use these as-given.
  */
 public class TestUtilities extends AndroidTestCase {
-    private static final String TEST_LOCATION = "99705";
+    public static final String TEST_LOCATION = "99705";
     public static final long TEST_DATE = 1419033600L;  // December 20th, 2014
 
     static void validateCursor(String error, Cursor valueCursor, ContentValues expectedValues) {
