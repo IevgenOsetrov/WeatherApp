@@ -226,12 +226,21 @@ public class WeatherProvider extends ContentProvider {
             case WEATHER: {
                 normalizeDate(values);
                 long _id = db.insert(WeatherContract.WeatherEntry.TABLE_NAME, null, values);
-                if (_id > 0)
+                if (_id > 0) {
                     returnUri = WeatherContract.WeatherEntry.buildWeatherUri(_id);
-                else
+                } else {
                     throw new android.database.SQLException("Failed to insert row into " + uri);
+                }
                 break;
             }
+            case LOCATION:
+                long locationId = db.insert(WeatherContract.LocationEntry.TABLE_NAME, null, values);
+                if (locationId > 0) {
+                    returnUri = WeatherContract.LocationEntry.buildLocationUri(locationId);
+                } else {
+                    throw new android.database.SQLException("Failed to insert row into " + uri);
+                }
+                break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
@@ -242,17 +251,36 @@ public class WeatherProvider extends ContentProvider {
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
         // Student: Start by getting a writable database
-
+        SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         // Student: Use the uriMatcher to match the WEATHER and LOCATION URI's we are going to
         // handle.  If it doesn't match these, throw an UnsupportedOperationException.
+        int match = sUriMatcher.match(uri);
+        int numberOfDeletedRows;
 
+        if (selection == null) {
+            selection = "1";
+        }
+
+        switch (match) {
+            case WEATHER:
+                numberOfDeletedRows = db.delete(WeatherContract.WeatherEntry.TABLE_NAME, selection, selectionArgs);
+                break;
+            case LOCATION:
+                numberOfDeletedRows = db.delete(WeatherContract.LocationEntry.TABLE_NAME, selection, selectionArgs);
+                break;
+            default:
+                throw new UnsupportedOperationException("Unknown uri: " + uri);
+        }
         // Student: A null value deletes all rows.  In my implementation of this, I only notified
         // the uri listeners (using the content resolver) if the rowsDeleted != 0 or the selection
         // is null.
         // Oh, and you should notify the listeners here.
 
+        if (numberOfDeletedRows != 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
         // Student: return the actual rows deleted
-        return 0;
+        return numberOfDeletedRows;
     }
 
     private void normalizeDate(ContentValues values) {
@@ -264,11 +292,26 @@ public class WeatherProvider extends ContentProvider {
     }
 
     @Override
-    public int update(
-            Uri uri, ContentValues values, String selection, String[] selectionArgs) {
-        // Student: This is a lot like the delete function.  We return the number of rows impacted
-        // by the update.
-        return 0;
+    public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+        SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        int match = sUriMatcher.match(uri);
+        int numberOfUpdatedRows;
+
+        switch (match) {
+            case WEATHER:
+                numberOfUpdatedRows = db.update(WeatherContract.WeatherEntry.TABLE_NAME, values, selection, selectionArgs);
+                break;
+            case LOCATION:
+                numberOfUpdatedRows = db.update(WeatherContract.LocationEntry.TABLE_NAME, values, selection, selectionArgs);
+                break;
+            default:
+                throw new UnsupportedOperationException("Unknown uri: " + uri);
+        }
+
+        if (numberOfUpdatedRows != 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+        return numberOfUpdatedRows;
     }
 
     @Override
