@@ -23,7 +23,7 @@ public class Utility {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         return prefs.getString(context.getString(R.string.pref_temperature_key),
                 context.getString(R.string.pref_temperature_metric_value))
-                .equals(context.getString(R.string.pref_temperature_imperial_value));
+                .equals(context.getString(R.string.pref_temperature_metric_value));
     }
 
     static String formatTemperature(double temperature, boolean isMetric) {
