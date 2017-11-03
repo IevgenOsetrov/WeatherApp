@@ -134,7 +134,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         }
 
         int weatherId = data.getInt(COL_WEATHER_CONDITION_ID);
-        iconImageView.setImageResource(R.mipmap.ic_launcher);
+        iconImageView.setImageResource(weatherId);
 
         String dateString = Utility.formatDate(data.getLong(COL_WEATHER_DATE));
         String weatherDescription = data.getString(COL_WEATHER_DESC);
