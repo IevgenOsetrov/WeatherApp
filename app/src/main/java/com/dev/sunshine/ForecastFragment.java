@@ -24,7 +24,10 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
 
     private static final String TAG = ForecastFragment.class.getSimpleName();
     public static final String FORECAST_DATA = "forecast_data";
+    private static final String POSITION = "position";
     private ForecastAdapter mForecastAdapter;
+    private ListView listView;
+    private int mPosition;
     public static final int LOADER_ID = 777;
 
     public static final String[] FORECAST_COLUMNS = {
@@ -80,20 +83,25 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             final Bundle savedInstanceState) {
 
         mForecastAdapter = new ForecastAdapter(getActivity(), null, 0);
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
         // Get a reference to the ListView, and attach this adapter to it.
-        ListView listView = rootView.findViewById(R.id.listview_forecast);
+        listView = rootView.findViewById(R.id.listview_forecast);
         listView.setAdapter(mForecastAdapter);
+
+        if (savedInstanceState != null) {
+            mPosition = savedInstanceState.getInt(POSITION);
+        }
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Cursor cursor = (Cursor) parent.getItemAtPosition(position);
+                mPosition = position;
                 if (cursor != null) {
                     String locationSetting = Utility.getPreferredLocation(getActivity());
 
@@ -103,6 +111,12 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
         });
 
         return rootView;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(POSITION, mPosition);
     }
 
     @Override
@@ -160,6 +174,7 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         mForecastAdapter.swapCursor(cursor);
+        listView.smoothScrollToPosition(mPosition);
     }
 
     @Override
