@@ -28,7 +28,9 @@
 
         <activity android:name=".DetailActivity" />
 
-        <activity android:name=".SettingsActivity" />
+        <activity
+            android:name=".SettingsActivity"
+            android:theme="@style/SettingsTheme" />
 
         <provider
             android:name=".data.WeatherProvider"

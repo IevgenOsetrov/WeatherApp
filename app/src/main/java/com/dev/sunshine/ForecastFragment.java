@@ -181,4 +181,10 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     public void onLoaderReset(Loader loader) {
         mForecastAdapter.swapCursor(null);
     }
+
+    public void setUseTodayLayout() {
+        if (mForecastAdapter != null) {
+            mForecastAdapter.setUseTodayLayout(true);
+        }
+    }
 }

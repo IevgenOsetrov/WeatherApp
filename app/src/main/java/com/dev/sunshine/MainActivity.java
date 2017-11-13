@@ -28,8 +28,12 @@ public class MainActivity extends AppCompatActivity implements ForecastFragment.
             if (savedInstanceState == null) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.weather_detail_container, new DetailFragment(), DETAILFRAGMENT_TAG).commit();
             }
+
         } else {
             twoPane = false;
+            getSupportActionBar().setElevation(0f);
+            ForecastFragment forecastFragment = (ForecastFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_forecast);
+            forecastFragment.setUseTodayLayout();
         }
     }
 
@@ -97,7 +101,6 @@ public class MainActivity extends AppCompatActivity implements ForecastFragment.
     @Override
     public void onItemSelected(Uri dateUri) {
         if (twoPane) {
-
             Log.d(TAG, "Uri " + dateUri);
             Bundle arguments = new Bundle();
             arguments.putParcelable(DetailFragment.DETAIL_URI, dateUri);
