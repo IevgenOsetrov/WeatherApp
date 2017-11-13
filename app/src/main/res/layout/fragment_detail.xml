@@ -5,6 +5,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:gravity="center_vertical"
         android:orientation="vertical"
         android:padding="16dp">
 
@@ -15,6 +17,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-condensed"
             android:text=""
+            android:textColor="@android:color/black"
             android:textSize="24sp" />
 
         <TextView
@@ -31,12 +34,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="16dp"
+            android:gravity="center_horizontal"
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:gravity="left"
                 android:orientation="vertical">
 
                 <TextView
@@ -51,6 +55,7 @@
                     android:id="@+id/detail_low_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
                     android:fontFamily="sans-serif-light"
                     android:text=""
                     android:textColor="@color/grey_text"
@@ -58,9 +63,9 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_gravity="center"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
@@ -80,28 +85,38 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!-- Humidity, wind, pressure -->
-        <TextView
-            android:id="@+id/detail_humidity_textview"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textAppearance="?android:textAppearanceLarge" />
+            android:layout_height="match_parent"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical">
+            <!-- Humidity, wind, pressure -->
+            <TextView
+                android:id="@+id/detail_humidity_textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:text=""
+                android:textAppearance="?android:textAppearanceLarge" />
 
-        <TextView
-            android:id="@+id/detail_wind_textview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text=""
-            android:textAppearance="?android:textAppearanceLarge" />
+            <TextView
+                android:id="@+id/detail_wind_textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="sans-serif-light"
+                android:text=""
+                android:textAppearance="?android:textAppearanceLarge" />
 
-        <TextView
-            android:id="@+id/detail_pressure_textview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text=""
-            android:textAppearance="?android:textAppearanceLarge" />
+            <TextView
+                android:id="@+id/detail_pressure_textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="sans-serif-light"
+                android:text=""
+                android:textAppearance="?android:textAppearanceLarge" />
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>
